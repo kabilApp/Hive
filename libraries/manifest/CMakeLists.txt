@@ -25,6 +25,14 @@ execute_process(
 )
 
 if( NOT RETURN_VALUE EQUAL 0 )
+   message( STATUS "PLUGINS_DEPS: ${PLUGINS_DEPS}" )
+   message( STATUS "RETURN_VALUE: ${RETURN_VALUE}" )
+
+   message( STATUS "COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}
+   python3 -m steem_manifest.plugins
+   ${CMAKE_CURRENT_SOURCE_DIR}/../plugins
+   -o ${CMAKE_CURRENT_BINARY_DIR}/template_context/plugins.json
+   --print-dependencies" )
    message(FATAL_ERROR "Could not get plugin dependencies")
 endif()
 message( STATUS "PLUGINS_DEPS: ${PLUGINS_DEPS}" )
